@@ -35,5 +35,6 @@ jobs:
       - name: Deploy docs (if pushing to master)
         if: github.repository == 'jerbly/doctest' && github.event_name == 'push'
         run: |
-          # mike set-default 0.2
           mike deploy 0.2 -p
+          mike set-default 0.2 -p
+          
