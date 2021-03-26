@@ -21,9 +21,16 @@ jobs:
       - name: Install package
         run: |
           pip install mkdocs-material mike
+
+      - name: setup git config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
       - name: Build the docs
         run:  |
           mike deploy 0.2
+
       - name: Deploy docs (if pushing to master)
         if: github.repository == 'jerbly/doctest' && github.event_name == 'push'
         run: |
