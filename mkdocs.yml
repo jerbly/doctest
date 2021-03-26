@@ -1,0 +1,21 @@
+# Project information
+site_name: Doc Test
+site_url: https://jerbly.github.io/doctest/
+site_author: jerbly
+
+# Repository
+repo_name: jerbly/doctest
+repo_url: https://github.com/jerbly/doctest
+edit_uri: ""
+
+# Configuration
+theme:
+  name: material
+
+# Customization
+extra:
+  version:
+    provider: mike
+
+nav:
+  - Home: index.md

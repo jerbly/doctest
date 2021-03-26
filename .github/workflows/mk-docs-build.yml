@@ -1,0 +1,33 @@
+name: Build mkdocs
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: Install package
+        run: |
+          pip install mkdocs-material mike
+      - name: Build the docs
+        run:  |
+          cd docs
+          mike deploy 0.2
+      - name: Deploy docs (if pushing to master)
+        if: github.repository == 'jerbly/doctest' && github.event_name == 'push'
+        run: |
+          cd docs
+          mike set-default 0.2
+          mike deploy 0.2 -p
