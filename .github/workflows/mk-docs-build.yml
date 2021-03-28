@@ -40,6 +40,6 @@ jobs:
           # pwd
           # ls
           # git clone -b gh-pages https://github.com/jerbly/doctest.git site
-          mike deploy 0.2 -p
+          mike deploy 0.3 -p
           mike set-default 0.2 -p
           
