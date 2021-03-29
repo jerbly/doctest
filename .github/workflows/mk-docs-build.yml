@@ -51,6 +51,6 @@ jobs:
         if: github.repository == 'jerbly/doctest' && github.event_name == 'push'
         run: |
           echo Latest ${{ steps.latest.outputs.release }} Pre ${{ steps.prerelease.outputs.release }} 
-          mike deploy 0.3 -p
+          mike deploy dev -p
           mike set-default 0.2 -p
           
