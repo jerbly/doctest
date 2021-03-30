@@ -1,13 +1,11 @@
-name: Build mkdocs
+name: Release mkdocs
 
 on:
-  pull_request:
-    branches: [ main ]
-  push:
-    branches: [ main ]
+  release:
+    types: [created]
 
 jobs:
-  build:
+  deploy:
 
     runs-on: ubuntu-18.04
     steps:
@@ -30,11 +28,16 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "bot@jerbly.net"
 
-      # - name: Build the docs locally
-      #   run:  |
-      #     mike deploy dev
+      - name: get latest release tag
+        id: latest
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          excludes: prerelease
+          repository: ${{ github.repository }}
 
-      - name: Deploy docs (if pushing to master)
-        if: github.repository == 'jerbly/doctest' && github.event_name == 'push'
+      - name: Deploy docs
         run: |
-          mike deploy dev -p          
+          echo Deploy as ${{ steps.latest.outputs.release }} 
+          mike deploy ${{ steps.latest.outputs.release }} -p
+          mike set-default ${{ steps.latest.outputs.release }} -p
+          
