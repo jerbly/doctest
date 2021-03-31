@@ -27,8 +27,7 @@ jobs:
 
       - name: Install package
         run: |
-          pip install mkdocs-material mike
-#          pip install git+git://github.com/jimporter/mike.git#egg=mike --upgrade
+          pip install mkdocs-material==7.0.6 mike==0.5.5
 
       - name: setup git config
         run: |
@@ -41,9 +40,16 @@ jobs:
           mike deploy dev -b ${{ env.SITE_BRANCH }} 
 
       - name: Deploy docs (if pushing to master)
+        id: deploy_dev
         if: github.repository == 'jerbly/doctest' && github.event_name == 'push'
         run: |
-          mike deploy dev -b ${{ env.SITE_BRANCH }} -p     
+          mike deploy dev -b ${{ env.SITE_BRANCH }} -p
+          echo '::set-output name=MIKE_VERSIONS::'$(mike list -b ${{ env.SITE_BRANCH }} | wc -l)     
+
+      - name: Set dev as default
+        if: steps.deploy_dev.outputs.MIKE_VERSIONS == 1
+        run: |
+          mike set-default -b ${{ env.SITE_BRANCH }} dev -p
 
       - name: Get latest release tag
         if: github.event_name == 'release'
