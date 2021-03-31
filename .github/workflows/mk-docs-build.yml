@@ -27,8 +27,8 @@ jobs:
 
       - name: Install package
         run: |
-          pip install mkdocs-material
-          pip install git+git://github.com/jimporter/mike.git#egg=mike --upgrade
+          pip install mkdocs-material mike
+#          pip install git+git://github.com/jimporter/mike.git#egg=mike --upgrade
 
       - name: setup git config
         run: |
