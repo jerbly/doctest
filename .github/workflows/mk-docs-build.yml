@@ -52,7 +52,7 @@ jobs:
           mike set-default -b ${{ env.SITE_BRANCH }} dev -p
 
       - name: Get latest release tag
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' && !github.event.release.prerelease
         id: latest
         uses: pozetroninc/github-action-get-latest-release@master
         with:
@@ -60,7 +60,7 @@ jobs:
           repository: ${{ github.repository }}
 
       - name: Release docs
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' && !github.event.release.prerelease
         run: |
           echo Deploy as ${{ steps.latest.outputs.release }} 
           mike deploy -b ${{ env.SITE_BRANCH }} ${{ steps.latest.outputs.release }} -p
