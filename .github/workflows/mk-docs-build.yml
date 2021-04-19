@@ -66,5 +66,5 @@ jobs:
         run: |
           ls -l
           echo Deploy as ${{ steps.latest.outputs.release }} 
-          mike deploy ${{ steps.latest.outputs.release }} -b ${{ env.SITE_BRANCH }} -p
-          mike set-default ${{ steps.latest.outputs.release }} -b ${{ env.SITE_BRANCH }} -p     
+          mike deploy -b ${{ env.SITE_BRANCH }} ${{ steps.latest.outputs.release }} -p
+          mike set-default -b ${{ env.SITE_BRANCH }} ${{ steps.latest.outputs.release }} -p     
