@@ -49,7 +49,7 @@ jobs:
       - name: Set dev as default
         if: steps.deploy_dev.outputs.MIKE_VERSIONS == 1
         run: |
-          mike set-default -b ${{ env.SITE_BRANCH }} dev -p
+          mike set-default dev -b ${{ env.SITE_BRANCH }} -p
 
       - name: Get latest release tag
         if: github.event_name == 'release' && !github.event.release.prerelease
@@ -62,6 +62,7 @@ jobs:
       - name: Release docs
         if: github.event_name == 'release' && !github.event.release.prerelease
         run: |
+          ls -l
           echo Deploy as ${{ steps.latest.outputs.release }} 
-          mike deploy -b ${{ env.SITE_BRANCH }} ${{ steps.latest.outputs.release }} -p
-          mike set-default -b ${{ env.SITE_BRANCH }} ${{ steps.latest.outputs.release }} -p     
+          mike deploy ${{ steps.latest.outputs.release }} -b ${{ env.SITE_BRANCH }} -p
+          mike set-default ${{ steps.latest.outputs.release }} -b ${{ env.SITE_BRANCH }} -p     
