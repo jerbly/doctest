@@ -28,6 +28,8 @@ jobs:
       - name: Install package
         run: |
           pip install mkdocs-material==7.0.6 mike==0.5.5
+          # Below version is needed to work around a clash with ruamel-yaml. When v1.0 is released this can be removed.
+          pip install git+git://github.com/jimporter/mike.git@2961733cbfef132e9d63752307443981ad02d1fc --upgrade
 
       - name: setup git config
         run: |
